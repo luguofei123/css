@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>js和jquery操作css transition对比</title>
+		<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+		<style>
+			.box{width: 100px;height: 100px;background: blue;}
+			.box.boxTranslate{
+				
+				-webkit-transition: 3s;
+				-moz-transition: 3s;
+				-ms-transition:3s;
+				transition: 3s;
+				margin-left: 60%!important;
+				
+		}
+		</style>
+	
+	</head>
+	<body>
+		<h3>js控制</h3>
+		<div class="box"></div>
+		<button class="toggleButton">移动</button>
+		
+		<h3>jQuery控制</h3>
+		<div class="box"></div>
+		<button class="toggleButton">移动</button>
+		
+			<script>
+			//js实现运动
+			var box1    = document.getElementsByClassName("box")[0];
+			var button1 = document.getElementsByClassName("toggleButton")[0];
+			
+			button1.onclick = function(){
+				
+				           if(this.innerHTML ==="移动"){
+				           	  
+				           	  this.innerHTML ="停止";
+				           	  box1.classList.add('boxTranslate');
+				           	
+				           	
+				           }
+				           
+				           else{
+				           	  
+				           	  this.innerHTML ="移动";				      
+				           	  var marginLeft1 = window.getComputedStyle(box1),
+				           	      marginLeft2 = marginLeft1.getPropertyValue('margin-left');
+				           	  //alert(box1.style.marginLeft);
+				           	  box1.style.marginLeft = marginLeft2; 
+				           	  box1.classList.remove('boxTranslate');
+				           	
+				           }
+				
+			}
+			
+			
+			//jquery实现
+			  var    box2 = $(".box:eq(1)"),
+			      button2 = $(".toggleButton:eq(1)");
+			      
+			      button2.click(function(){
+			      	
+			      	          if($(this).html()=="移动"){
+			      	          	
+			      	          	$(this).html("停止");
+			      	          	box2.addClass("boxTranslate");
+			      	          	
+			      	          }
+			      	          
+			      	          else{
+			      	          	 $(this).html("移动");
+			      	          	var marginLeft2 =  box2.css('margin-left');
+			      	          	box2.css('margin-left',marginLeft2);
+			      	          	box2.removeClass("boxTranslate");
+			      	          	
+			      	          	
+			      	          }
+			      	
+			      	
+			      	
+			      	
+			      })
+			  
+			
+		</script>
+	</body>
+</html>
